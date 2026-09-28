@@ -1,0 +1,828 @@
+/home/hp/rov_system_id_ws/build/rov_system_identification/rov_system_identification/run_identification.py:240: DtypeWarning: Columns (8) have mixed types.Specify dtype option on import or set low_memory=False.
+  data=load_raw_data(dirs["raw"])
+/home/hp/rov_system_id_ws/build/rov_system_identification/rov_system_identification/common.py:214: RuntimeWarning: overflow encountered in multiply
+  cols.append(nu[:, j] * np.abs(nu[:, j])); names.append(f"{n}|{n}|")
+/home/hp/rov_system_id_ws/build/rov_system_identification/rov_system_identification/common.py:220: RuntimeWarning: overflow encountered in multiply
+  cols.append(nu[:, i] * nu[:, j])
+/home/hp/rov_system_id_ws/build/rov_system_identification/rov_system_identification/models.py:102: RuntimeWarning: invalid value encountered in matmul
+  return X @ self.coef_
+/home/hp/rov_system_id_ws/build/rov_system_identification/rov_system_identification/run_identification.py:190: RuntimeWarning: overflow encountered in square
+  nr=np.sqrt(np.mean((yt-yp)**2,axis=0))
+/home/hp/rov_system_id_ws/build/rov_system_identification/rov_system_identification/models.py:185: RuntimeWarning: invalid value encountered in matmul
+  return X @ self.coef_
+
+=== X-axis tether calibration ===
+{
+  "dof": "u / Fx",
+  "samples": 16,
+  "paired_trials": 8,
+  "low_force_calibration_trials": 4,
+  "calibration_amplitude_min_N": 10.0,
+  "calibration_amplitude_max_N": 40.0,
+  "gain_estimate_mps2_per_N": -0.00017699990854220886,
+  "bias_acceleration_estimate_mps2": 0.0026671512556098705,
+  "equivalent_input_disturbance_N": -15.068658947774765,
+  "tether_force_estimate_N": -15.068658947774765,
+  "holding_force_zero_acceleration_N": 15.068658947774765,
+  "zero_crossing_force_N": 15.068658947774765,
+  "baseline_neutral_drift_accel_mean_mps2": NaN,
+  "baseline_neutral_drift_accel_median_mps2": NaN,
+  "gain_pool_min_N": -0.000285679860122413,
+  "gain_pool_max_N": -0.00010900432144608839,
+  "bias_mad_mps2": 0.00044769443903199565,
+  "holding_force_relative_mad": 1.4335937981593048,
+  "bias_vs_amplitude_correlation_all_training": -0.7050180776145253,
+  "holding_force_vs_amplitude_correlation_all_training": -0.3760363505849583,
+  "bias_vs_start_x_correlation_all_training": -0.7190942880624956,
+  "bias_vs_amplitude_correlation_low_force": -0.6786928722964993,
+  "bias_vs_start_x_correlation_low_force": -0.764618738929849,
+  "position_dependence_suspected": true,
+  "amplitude_dependence_suspected": true,
+  "interpretation": "The training data show amplitude/position dependence, so the low-force equivalent disturbance is treated as a baseline correction only, not as a universal physical tether force.",
+  "formulae": {
+    "gain": "(s_plus - s_minus)/(2*F)",
+    "bias_acceleration": "(s_plus + s_minus)/2",
+    "equivalent_input_disturbance": "bias_acceleration/gain",
+    "zero_acceleration_command": "-bias_acceleration/gain",
+    "corrected_Fx": "Fx_cmd + equivalent_input_disturbance_N"
+  }
+}
+
+=== direct_gain ===
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.0009815067766680773,
+    0.0009870260249979649,
+    0.000754079149160293,
+    0.0021042807212177817,
+    0.0026407918478979003,
+    0.005770405108444974
+  ],
+  "next_state_nrmse": [
+    0.013959800571271636,
+    0.021859966871443228,
+    0.025129094883316022,
+    0.03656235307881086,
+    0.04984740289529331,
+    0.03446351783413441
+  ],
+  "next_state_r2": [
+    0.9996456689671956,
+    0.9995084893689917,
+    0.9993424450434643,
+    0.9986628764870122,
+    0.9975150519378897,
+    0.9987961834379753
+  ],
+  "mean_next_state_rmse": 0.0022063482713978316,
+  "mean_next_state_nrmse": 0.030303689355711583,
+  "mean_next_state_r2": 0.9989117858737547,
+  "mean_rollout_rmse_1s": 0.01206901205819834,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": 0.02625193372822081,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": 0.029260963937720583,
+  "mean_rollout_effective_s_5s": 4.98032593113792
+}
+
+=== coupled_linear_ridge ===
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.0009887343393205432,
+    0.001000914763414702,
+    0.0007609522658483592,
+    0.002116442144126413,
+    0.0026396421812912526,
+    0.005784715464737394
+  ],
+  "next_state_nrmse": [
+    0.01406259694073462,
+    0.022167565003596474,
+    0.025358136094163514,
+    0.036773660550215526,
+    0.04982570186854164,
+    0.03454898587494404
+  ],
+  "next_state_r2": [
+    0.9996404313491027,
+    0.999494559662971,
+    0.9993304037387573,
+    0.9986473763548417,
+    0.9975172151071999,
+    0.9987902052077635
+  ],
+  "mean_next_state_rmse": 0.002215233526456444,
+  "mean_next_state_nrmse": 0.030456107722032638,
+  "mean_next_state_r2": 0.9989033652367727,
+  "mean_rollout_rmse_1s": 0.012946346390505136,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": 0.027613482411018693,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": 0.03227210262718089,
+  "mean_rollout_effective_s_5s": 4.98032593113792
+}
+
+=== nonlinear_ridge ===
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.0009735368628002268,
+    0.0010193895191099429,
+    0.0007796292932905363,
+    0.0028338736558570854,
+    0.0028316247255939578,
+    0.00579547377223936
+  ],
+  "next_state_nrmse": [
+    0.013846445869286699,
+    0.022576731061256204,
+    0.025980533352137555,
+    0.049239195199310054,
+    0.05344955099634705,
+    0.0346132394438861
+  ],
+  "next_state_r2": [
+    0.9996513999970267,
+    0.9994757287577939,
+    0.9992971308396678,
+    0.9975749251866974,
+    0.9971429333848798,
+    0.9987857011151015
+  ],
+  "mean_next_state_rmse": 0.0023722546381485183,
+  "mean_next_state_nrmse": 0.033284282653703944,
+  "mean_next_state_r2": 0.9986546365468613,
+  "mean_rollout_rmse_1s": 0.013594402909384158,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": NaN,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": NaN,
+  "mean_rollout_effective_s_5s": 4.98032593113792
+}
+
+=== greybox_quadratic_drag ===
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.0009760795202482097,
+    0.0009832468634782077,
+    0.0007581154549562123,
+    0.0021064358143094717,
+    0.002641008018757724,
+    0.005767526861147341
+  ],
+  "next_state_nrmse": [
+    0.013882609644961682,
+    0.021776268626886915,
+    0.025263601601127648,
+    0.03659979830830974,
+    0.04985148332137931,
+    0.03444632761521411
+  ],
+  "next_state_r2": [
+    0.9996495766908385,
+    0.9995122459913864,
+    0.999335386908858,
+    0.9986601362620785,
+    0.9975146450937489,
+    0.9987973840530341
+  ],
+  "mean_next_state_rmse": 0.0022054020888161944,
+  "mean_next_state_nrmse": 0.030303348186313233,
+  "mean_next_state_r2": 0.9989115624999908,
+  "mean_rollout_rmse_1s": 0.012705253408154638,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": 0.02953098363985642,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": 0.038039601697451984,
+  "mean_rollout_effective_s_5s": 4.98032593113792
+}
+
+=== sindyc ===
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.000973536864263424,
+    0.0009426221453574373,
+    0.0007796292942981572,
+    0.0022341729321022847,
+    0.002731016118538584,
+    0.005767423837351554
+  ],
+  "next_state_nrmse": [
+    0.013846445890097498,
+    0.02087654058548741,
+    0.02598053338571573,
+    0.038819259597347104,
+    0.051550469940558605,
+    0.0344457123096408
+  ],
+  "next_state_r2": [
+    0.9996513999959787,
+    0.9995517183259381,
+    0.9992971308378509,
+    0.9984927067826018,
+    0.9973423517406511,
+    0.9987974270166669
+  ],
+  "mean_next_state_rmse": 0.0022380668653185737,
+  "mean_next_state_nrmse": 0.030919826951474525,
+  "mean_next_state_r2": 0.9988554557832813,
+  "mean_rollout_rmse_1s": 0.012644071892578754,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": 0.038099011414166994,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": NaN,
+  "mean_rollout_effective_s_5s": 4.98032593113792
+}
+
+=== weak_sindyc ===
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.00098962959868634,
+    0.0010328885715819604,
+    0.0007873096488221292,
+    0.002992100178162421,
+    0.002845909005170188,
+    0.005769938400686551
+  ],
+  "next_state_nrmse": [
+    0.014075330059346915,
+    0.02287569869975873,
+    0.026236475162895637,
+    0.05198841678207116,
+    0.05371918006221687,
+    0.03446073044038069
+  ],
+  "next_state_r2": [
+    0.9996397799042676,
+    0.999461751717981,
+    0.9992832142895064,
+    0.9972965618807638,
+    0.9971140354346019,
+    0.99879637815838
+  ],
+  "mean_next_state_rmse": 0.002402962567184932,
+  "mean_next_state_nrmse": 0.033892638534445005,
+  "mean_next_state_r2": 0.9985986202309167,
+  "mean_rollout_rmse_1s": 0.013205578758709665,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": NaN,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": NaN,
+  "mean_rollout_effective_s_5s": 4.98032593113792
+}
+
+=== arx ===
+/home/hp/rov_system_id_ws/build/rov_system_identification/rov_system_identification/models.py:323: RuntimeWarning: invalid value encountered in matmul
+  return X @ self.K_
+/home/hp/rov_system_id_ws/build/rov_system_identification/rov_system_identification/common.py:214: RuntimeWarning: overflow encountered in multiply
+  cols.append(nu[:, j] * np.abs(nu[:, j])); names.append(f"{n}|{n}|")
+/home/hp/rov_system_id_ws/build/rov_system_identification/rov_system_identification/common.py:220: RuntimeWarning: overflow encountered in multiply
+  cols.append(nu[:, i] * nu[:, j])
+/home/hp/rov_system_id_ws/build/rov_system_identification/rov_system_identification/models.py:102: RuntimeWarning: invalid value encountered in matmul
+  return X @ self.coef_
+/home/hp/rov_system_id_ws/build/rov_system_identification/rov_system_identification/run_identification.py:190: RuntimeWarning: overflow encountered in square
+  nr=np.sqrt(np.mean((yt-yp)**2,axis=0))
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.00019187332841668662,
+    0.00019376390389963402,
+    0.00014800977967156795,
+    0.0003481948941738503,
+    0.0004183080615463151,
+    0.0009148100798280871
+  ],
+  "next_state_nrmse": [
+    0.002728342561092359,
+    0.004290244942420842,
+    0.004930004925275698,
+    0.006047255636066661,
+    0.007877422143769778,
+    0.005454984231923478
+  ],
+  "next_state_r2": [
+    0.9999864671961577,
+    0.9999810692964053,
+    0.9999746851988546,
+    0.9999634211581131,
+    0.9999379417670239,
+    0.9999698367223318
+  ],
+  "mean_next_state_rmse": 0.00036916000792269017,
+  "mean_next_state_nrmse": 0.0052213757400914685,
+  "mean_next_state_r2": 0.999968903556481,
+  "mean_rollout_rmse_1s": 0.010268867229231498,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": 0.025336769957622372,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": 0.02981161459742115,
+  "mean_rollout_effective_s_5s": 4.960325803281575
+}
+
+=== subspace_moesp ===
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.0009936456981105267,
+    0.00100555430106738,
+    0.0007616345081682792,
+    0.0021310729506846177,
+    0.0026456455981407837,
+    0.005798489160884061
+  ],
+  "next_state_nrmse": [
+    0.01413871706565806,
+    0.022287628216824933,
+    0.025407518170747104,
+    0.03708402570370139,
+    0.04991296556253993,
+    0.034636082307272005
+  ],
+  "next_state_r2": [
+    0.9996361787050442,
+    0.9994890248390992,
+    0.9993276942863355,
+    0.9986244230452036,
+    0.9975085108552506,
+    0.9987841245830583
+  ],
+  "mean_next_state_rmse": 0.002222673702842608,
+  "mean_next_state_nrmse": 0.030577822837790567,
+  "mean_next_state_r2": 0.9988949927189985,
+  "mean_rollout_rmse_1s": 0.0130471260528962,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": 0.0277988097338979,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": 0.032470049061465764,
+  "mean_rollout_effective_s_5s": 4.98032593113792
+}
+
+=== koopman_dmdc ===
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.0009753136598495363,
+    0.0010207770033124576,
+    0.0007812211826502409,
+    0.002791286243837871,
+    0.0028221579443102897,
+    0.0058106281486737165
+  ],
+  "next_state_nrmse": [
+    0.013877868050056393,
+    0.022625032102158202,
+    0.02606091396947711,
+    0.04857277681630651,
+    0.053243061876994534,
+    0.03470859205395667
+  ],
+  "next_state_r2": [
+    0.9996494793441245,
+    0.9994734368196255,
+    0.9992926707827335,
+    0.9976400814796369,
+    0.9971649658374253,
+    0.9987790284465499
+  ],
+  "mean_next_state_rmse": 0.0023668973637723523,
+  "mean_next_state_nrmse": 0.03318137414482491,
+  "mean_next_state_r2": 0.9986666104516826,
+  "mean_rollout_rmse_1s": 0.013493213585709618,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": NaN,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": NaN,
+  "mean_rollout_effective_s_5s": 4.98032593113792
+}
+
+=== gaussian_process ===
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.0009749014520295832,
+    0.0009841206430970801,
+    0.0007593115804485278,
+    0.0021051122774527423,
+    0.0026454290985064694,
+    0.005899766994304544
+  ],
+  "next_state_nrmse": [
+    0.013865854185109222,
+    0.021795620491009783,
+    0.02530346154291522,
+    0.036576801556317186,
+    0.04993493531463026,
+    0.035236126615769844
+  ],
+  "next_state_r2": [
+    0.9996504220593342,
+    0.9995113787038354,
+    0.9993332880523188,
+    0.9986618194863199,
+    0.9975063170999301,
+    0.9987416037176927
+  ],
+  "mean_next_state_rmse": 0.0022281070076398245,
+  "mean_next_state_nrmse": 0.030452133284291916,
+  "mean_next_state_r2": 0.9989008048532385,
+  "mean_rollout_rmse_1s": 0.013588839545770809,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": 0.03241524680037995,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": 0.037772223509971344,
+  "mean_rollout_effective_s_5s": 4.98032593113792
+}
+
+=== direct_gain_tether_corrected ===
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.0009785656461690038,
+    0.000987026024997964,
+    0.0007540791491602922,
+    0.002104280721217781,
+    0.0026407918478978947,
+    0.005770405108444953
+  ],
+  "next_state_nrmse": [
+    0.013917969382534937,
+    0.02185996687144321,
+    0.025129094883315998,
+    0.036562353078810846,
+    0.04984740289529321,
+    0.03446351783413429
+  ],
+  "next_state_r2": [
+    0.9996477893242446,
+    0.9995084893689917,
+    0.9993424450434643,
+    0.9986628764870122,
+    0.9975150519378897,
+    0.9987961834379753
+  ],
+  "mean_next_state_rmse": 0.0022058580829813147,
+  "mean_next_state_nrmse": 0.03029671749092208,
+  "mean_next_state_r2": 0.9989121392665963,
+  "mean_rollout_rmse_1s": 0.012073977993661292,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": 0.026266382715637075,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": 0.029360330446844475,
+  "mean_rollout_effective_s_5s": 4.98032593113792
+}
+
+=== coupled_linear_ridge_tether_corrected ===
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.0009887343393205435,
+    0.001000914763414702,
+    0.0007609522658483592,
+    0.002116442144126413,
+    0.002639642181291252,
+    0.005784715464737394
+  ],
+  "next_state_nrmse": [
+    0.014062596940734624,
+    0.022167565003596474,
+    0.025358136094163514,
+    0.036773660550215526,
+    0.049825701868541634,
+    0.03454898587494404
+  ],
+  "next_state_r2": [
+    0.9996404313491027,
+    0.999494559662971,
+    0.9993304037387573,
+    0.9986473763548417,
+    0.9975172151071999,
+    0.9987902052077635
+  ],
+  "mean_next_state_rmse": 0.002215233526456444,
+  "mean_next_state_nrmse": 0.030456107722032635,
+  "mean_next_state_r2": 0.9989033652367727,
+  "mean_rollout_rmse_1s": 0.012946346390505136,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": 0.027613482411018696,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": 0.03227210262718089,
+  "mean_rollout_effective_s_5s": 4.98032593113792
+}
+
+=== nonlinear_ridge_tether_corrected ===
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.0009735368628002272,
+    0.0010193895191099429,
+    0.0007796292932905363,
+    0.0028338736558570854,
+    0.0028316247255939578,
+    0.00579547377223936
+  ],
+  "next_state_nrmse": [
+    0.013846445869286706,
+    0.022576731061256204,
+    0.025980533352137555,
+    0.049239195199310054,
+    0.05344955099634705,
+    0.0346132394438861
+  ],
+  "next_state_r2": [
+    0.9996513999970267,
+    0.9994757287577939,
+    0.9992971308396678,
+    0.9975749251866974,
+    0.9971429333848798,
+    0.9987857011151015
+  ],
+  "mean_next_state_rmse": 0.0023722546381485183,
+  "mean_next_state_nrmse": 0.033284282653703944,
+  "mean_next_state_r2": 0.9986546365468613,
+  "mean_rollout_rmse_1s": 0.013594402909384157,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": NaN,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": NaN,
+  "mean_rollout_effective_s_5s": 4.98032593113792
+}
+
+=== greybox_quadratic_drag_tether_corrected ===
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.0009760795202482096,
+    0.0009832468634782077,
+    0.0007581154549562123,
+    0.0021064358143094717,
+    0.002641008018757724,
+    0.005767526861147341
+  ],
+  "next_state_nrmse": [
+    0.01388260964496168,
+    0.021776268626886915,
+    0.025263601601127648,
+    0.03659979830830974,
+    0.04985148332137931,
+    0.03444632761521411
+  ],
+  "next_state_r2": [
+    0.9996495766908385,
+    0.9995122459913864,
+    0.999335386908858,
+    0.9986601362620785,
+    0.9975146450937489,
+    0.9987973840530341
+  ],
+  "mean_next_state_rmse": 0.0022054020888161944,
+  "mean_next_state_nrmse": 0.030303348186313233,
+  "mean_next_state_r2": 0.9989115624999908,
+  "mean_rollout_rmse_1s": 0.012705253408154642,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": 0.02953098363985642,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": 0.038039601697451984,
+  "mean_rollout_effective_s_5s": 4.98032593113792
+}
+/home/hp/rov_system_id_ws/build/rov_system_identification/rov_system_identification/models.py:185: RuntimeWarning: invalid value encountered in matmul
+  return X @ self.coef_
+/home/hp/rov_system_id_ws/build/rov_system_identification/rov_system_identification/models.py:323: RuntimeWarning: invalid value encountered in matmul
+  return X @ self.K_
+usage: run_full_pipeline [-h] [--root ROOT]
+run_full_pipeline: error: unrecognized arguments: --config /home/hp/rov_system_id_ws/ROV_system_idetification/config/identification.yaml
+
+=== sindyc_tether_corrected ===
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.0009735368642634102,
+    0.0009426221453574373,
+    0.000779629294298146,
+    0.0022341729321022847,
+    0.002731016118538584,
+    0.005767423837351554
+  ],
+  "next_state_nrmse": [
+    0.013846445890097302,
+    0.02087654058548741,
+    0.025980533385715356,
+    0.038819259597347104,
+    0.051550469940558605,
+    0.0344457123096408
+  ],
+  "next_state_r2": [
+    0.9996513999959787,
+    0.9995517183259381,
+    0.9992971308378509,
+    0.9984927067826018,
+    0.9973423517406511,
+    0.9987974270166669
+  ],
+  "mean_next_state_rmse": 0.0022380668653185693,
+  "mean_next_state_nrmse": 0.030919826951474435,
+  "mean_next_state_r2": 0.9988554557832813,
+  "mean_rollout_rmse_1s": 0.012644071892579593,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": 0.03809901141413314,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": NaN,
+  "mean_rollout_effective_s_5s": 4.98032593113792
+}
+
+=== weak_sindyc_tether_corrected ===
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.000989629598692009,
+    0.001032888571631097,
+    0.0007873096488215898,
+    0.0029921001780640008,
+    0.0028459090051487393,
+    0.005769938400686551
+  ],
+  "next_state_nrmse": [
+    0.014075330059427547,
+    0.022875698700846978,
+    0.02623647516287766,
+    0.051988416780361084,
+    0.05371918006181201,
+    0.03446073044038069
+  ],
+  "next_state_r2": [
+    0.9996397799042633,
+    0.9994617517179297,
+    0.9992832142895074,
+    0.9972965618809416,
+    0.9971140354346454,
+    0.99879637815838
+  ],
+  "mean_next_state_rmse": 0.002402962567173998,
+  "mean_next_state_nrmse": 0.03389263853428433,
+  "mean_next_state_r2": 0.9985986202309446,
+  "mean_rollout_rmse_1s": 0.013205578758928364,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": NaN,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": NaN,
+  "mean_rollout_effective_s_5s": 4.98032593113792
+}
+
+=== arx_tether_corrected ===
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.00019169964564324358,
+    0.00019382263142650338,
+    0.000147852797302339,
+    0.0003481764862732156,
+    0.0004179081910724387,
+    0.0009144279937179393
+  ],
+  "next_state_nrmse": [
+    0.0027258728791056883,
+    0.0042915452644625715,
+    0.0049247760555672405,
+    0.00604693593786682,
+    0.007869891931433183,
+    0.005452705864257825
+  ],
+  "next_state_r2": [
+    0.9999864916847213,
+    0.9999810578193256,
+    0.9999747388692273,
+    0.9999634250256132,
+    0.9999380603561526,
+    0.9999698619134898
+  ],
+  "mean_next_state_rmse": 0.0003689812909059466,
+  "mean_next_state_nrmse": 0.005218621322115555,
+  "mean_next_state_r2": 0.9999689392780883,
+  "mean_rollout_rmse_1s": 0.010247492048365685,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": 0.02526525546467865,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": 0.029729019365107686,
+  "mean_rollout_effective_s_5s": 4.960325803281575
+}
+
+=== subspace_moesp_tether_corrected ===
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.000993545508753909,
+    0.0010092226587898431,
+    0.0007615771047040712,
+    0.0021301447057982302,
+    0.0026442275445465574,
+    0.005798404834930416
+  ],
+  "next_state_nrmse": [
+    0.0141372914579501,
+    0.022368935604201022,
+    0.02540560323708235,
+    0.03706787278072657,
+    0.04988621244781277,
+    0.03463557860353297
+  ],
+  "next_state_r2": [
+    0.9996362520695923,
+    0.9994852898667709,
+    0.9993277956242403,
+    0.9986256211216806,
+    0.9975111809923891,
+    0.9987841599471353
+  ],
+  "mean_next_state_rmse": 0.002222853726253838,
+  "mean_next_state_nrmse": 0.03058358235521763,
+  "mean_next_state_r2": 0.9988950499369681,
+  "mean_rollout_rmse_1s": 0.013136805809081102,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": 0.028127547977222625,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": 0.03302587412381479,
+  "mean_rollout_effective_s_5s": 4.98032593113792
+}
+
+=== koopman_dmdc_tether_corrected ===
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.0009753136598496252,
+    0.0010207770033220768,
+    0.0007812211826501332,
+    0.00279128624382583,
+    0.0028221579443079912,
+    0.005810628148675816
+  ],
+  "next_state_nrmse": [
+    0.01387786805005766,
+    0.02262503210237141,
+    0.02606091396947352,
+    0.04857277681609698,
+    0.05324306187695117,
+    0.034708592053969214
+  ],
+  "next_state_r2": [
+    0.9996494793441244,
+    0.9994734368196156,
+    0.9992926707827336,
+    0.9976400814796573,
+    0.99716496583743,
+    0.998779028446549
+  ],
+  "mean_next_state_rmse": 0.002366897363771912,
+  "mean_next_state_nrmse": 0.033181374144819996,
+  "mean_next_state_r2": 0.9986666104516849,
+  "mean_rollout_rmse_1s": 0.013493213585774677,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": NaN,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": NaN,
+  "mean_rollout_effective_s_5s": 4.98032593113792
+}
+
+=== gaussian_process_tether_corrected ===
+{
+  "status": "ok",
+  "next_state_rmse": [
+    0.0009749014520295832,
+    0.0009841206430970801,
+    0.0007593115804485278,
+    0.0021051122774527423,
+    0.0026454290985064694,
+    0.005899766994304544
+  ],
+  "next_state_nrmse": [
+    0.013865854185109222,
+    0.021795620491009783,
+    0.02530346154291522,
+    0.036576801556317186,
+    0.04993493531463026,
+    0.035236126615769844
+  ],
+  "next_state_r2": [
+    0.9996504220593342,
+    0.9995113787038354,
+    0.9993332880523188,
+    0.9986618194863199,
+    0.9975063170999301,
+    0.9987416037176927
+  ],
+  "mean_next_state_rmse": 0.0022281070076398245,
+  "mean_next_state_nrmse": 0.030452133284291916,
+  "mean_next_state_r2": 0.9989008048532385,
+  "mean_rollout_rmse_1s": 0.01358883954577081,
+  "mean_rollout_effective_s_1s": 1.0000063928172882,
+  "mean_rollout_rmse_3s": 0.03241524680037995,
+  "mean_rollout_effective_s_3s": 3.000019178451865,
+  "mean_rollout_rmse_5s": 0.03777222350997134,
+  "mean_rollout_effective_s_5s": 4.98032593113792
+}
+
+Saved models/results under /home/hp/rov_system_id_ws/ROV_system_idetification/results/models
+[ros2run]: Process exited with failure 2

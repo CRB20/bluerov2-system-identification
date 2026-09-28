@@ -1,0 +1,104 @@
+# Physical data-collection and offline system-identification configuration.
+# IMPORTANT: verify safe amplitudes on the actual ROV before collection.
+
+collector:
+  sample_rate_hz: 50.0
+  pulse_seconds: 5.0
+  neutral_seconds: 5.0
+  center_settle_seconds: 5.0
+  amplitudes: [10,20,30,40,50,60,70,80,90,100]
+  include_zero_baseline: true
+  repetitions: 1
+
+  # Individual six-axis pulses.
+  individual: true
+
+  # Cross excitation. Default: Fx/Fy planar coupling with all four sign combinations.
+  cross: true
+  cross_pairs:
+    - [Fx, Fy]
+    # Uncomment/add more pairs as desired, e.g.
+    # - [Fx, Mz]
+    # - [Fy, Mz]
+
+  # Broadband experiments. Each block is <= 5 s and has 5 s neutral separation.
+  broadband: true
+  broadband_types: [prbs, multisine, chirp]
+  broadband_amplitudes: [10,20,30,40,50,60,70,80,90,100]
+  broadband_block_seconds: 5.0
+  prbs_segment_seconds: 0.5
+  chirp_f0_hz: 0.05
+  chirp_f1_hz: 1.0
+  multisine_frequencies_hz: [0.10,0.20,0.40,0.80]
+  broadband_axes: [Fx, Fy, Fz, Mz]
+
+  output_dir: "~/rov_system_id_ws/ROV_system_idetification/data/raw"
+  metadata_dir: "~/rov_system_id_ws/ROV_system_idetification/metadata"
+
+  # Require the deployed allocator/bridge PWM path during physical collection.
+  require_thruster_pwm: true
+  pwm_freshness_seconds: 0.5
+
+analysis:
+  max_force_n: 100.0
+  max_torque_nm: 100.0
+  savgol_window: 21
+  savgol_order: 3
+  derivative_edge_samples: 10
+  train_max_amplitude: 80.0
+  validation_amplitude: 90.0
+  test_amplitude: 100.0
+  test_protocols: [individual, cross, broadband]
+  rollout_seconds: [1.0, 3.0, 5.0]
+  ridge_alpha: 1.0e-5
+  nonlinear_ridge_alpha: 1.0e-4
+  sindy_alpha: 1.0e-6
+  sindy_threshold: 0.02
+  sindy_max_iter: 10
+  weak_sindy_window_samples: 25
+  subspace_order: 8
+  subspace_horizon: 10
+  arx_na: 2
+  arx_nb: 2
+  gp_max_train_samples: 400
+  gp_random_seed: 7
+  koopman_alpha: 1.0e-5
+
+  # X-axis tether-disturbance calibration. These are analysis-time settings;
+  # the estimated force itself is written into the run report and injected
+  # transiently into corrected model fits, so it is not hard-coded here.
+  tether_early_start_s: 0.05
+  tether_early_end_s: 0.60
+  tether_min_gain_mps2_per_N: 1.0e-5
+  tether_calibration_min_amplitude_N: 10.0
+  tether_calibration_max_amplitude_N: 40.0
+  tether_position_correlation_threshold: 0.60
+  tether_hold_force_relative_mad_threshold: 0.50
+  enable_models:
+    - direct_gain
+    - coupled_linear_ridge
+    - nonlinear_ridge
+    - greybox_quadratic_drag
+    - sindyc
+    - weak_sindyc
+    - arx
+    - subspace_moesp
+    - koopman_dmdc
+    - gaussian_process
+
+    # Disturbance-aware counterparts. The X input is corrected using the
+    # training-only estimated tether force, while the raw-data models above
+    # remain available for direct comparison.
+    - direct_gain_tether_corrected
+    - coupled_linear_ridge_tether_corrected
+    - nonlinear_ridge_tether_corrected
+    - greybox_quadratic_drag_tether_corrected
+    - sindyc_tether_corrected
+    - weak_sindyc_tether_corrected
+    - arx_tether_corrected
+    - subspace_moesp_tether_corrected
+    - koopman_dmdc_tether_corrected
+    - gaussian_process_tether_corrected
+
+plots:
+  dpi: 180
